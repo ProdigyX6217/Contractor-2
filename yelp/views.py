@@ -42,6 +42,7 @@ def BusinessSearch(request):
         print("Phone:", business["phone"])
         print("\n")
     
+    return render(request, 'business.html', {'businesses': businesses})
 
 
 '''

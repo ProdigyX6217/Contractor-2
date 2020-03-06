@@ -3,10 +3,10 @@
 import os
 import sys
 
-import dotenv
+from dotenv import load_dotenv
+load_dotenv()
 
 def main():
-    dotenv.read_dotenv()
     
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'yohancescorner.settings')
     try:
