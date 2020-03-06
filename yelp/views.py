@@ -6,25 +6,29 @@ from django.conf import settings
 import os
 import requests
 import json
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
+API_KEY="LS6f-xpVxlngO2qWn-j724FR0LJv8PztM4Xd9HDcOmj7k6RTxY_BVjIiPuZJ5tq4OMYK-qx9Ls-mAQ9-u6547gvHqEYopMA1MR31VUcooDHaPjsUDSsRabQ1oLtZXnYx"
 
 # Create your views here.
 def index(request):
     return HttpResponse("Hello, world. You're at the yelp index.")
 
 def BusinessSearch(request):
-    yelp_client = os.getenv("API_KEY")
+    yelp_client = API_KEY
     headers = {'Authorization': 'Bearer %s' % yelp_client}
 
     url = 'https://api.yelp.com/v3/businesses/search'
     params = {'term':'bookstore','location':'New York City'}
 
-    req = requests.get(url, params=params, headers=headers)
+    req = requests.get(url=url, params=params, headers=headers)
 
+    print("***EXPECTED OUTPUT:***")
     parsed = json.loads(req.text)
-    print(parsed)
+    print("***EXPECTED OUTPUT TYPE:***", type(parsed))
+    fun = {"HAPPY":"FUNNY"}
+    return render('search_results.html', {'fun': fun})
 
     # businesses = parsed["businesses"]
 
