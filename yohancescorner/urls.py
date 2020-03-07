@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.views.static import serve
 
 urlpatterns = [
-    # path('/', include('Yelp.urls')),
+    path('api/', include('api.urls')),
     path('yelp/', include('Yelp.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

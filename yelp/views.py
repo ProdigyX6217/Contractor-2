@@ -8,31 +8,37 @@ import requests
 import json
 import os
 
+yelp_client = 'LS6f-xpVxlngO2qWn-j724FR0LJv8PztM4Xd9HDcOmj7k6RTxY_BVjIiPuZJ5tq4OMYK-qx9Ls-mAQ9-u6547gvHqEYopMA1MR31VUcooDHaPjsUDSsRabQ1oLtZXnYx'
+headers = {'Authorization': 'Bearer %s' % yelp_client}
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello, world. You're at the yelp index.")
+    return HttpResponse("Hello, world. You're at the Yelp index.")
 
 def BusinessSearch(request):
-    yelp_client = 'LS6f-xpVxlngO2qWn-j724FR0LJv8PztM4Xd9HDcOmj7k6RTxY_BVjIiPuZJ5tq4OMYK-qx9Ls-mAQ9-u6547gvHqEYopMA1MR31VUcooDHaPjsUDSsRabQ1oLtZXnYx'
-    # os.getenv('YELP_API_KEY')
-    headers = {'Authorization': 'Bearer %s' % yelp_client}
-
     url = 'https://api.yelp.com/v3/businesses/search'
     params = {'term':'bookstore','location':'New York City'}
-
     req = requests.get(url, params=params, headers=headers)
 
-    # proceed only if the status code is 200
-    # print(f'The status code is {req.status_code}')
-
-    # print("***EXPECTED OUTPUT:***")
     parsed = json.loads(req.text)
-    # print("***EXPECTED OUTPUT TYPE:***", type(parsed))
-    # fun = {"HAPPY":"FUNNY"}
-    # return render(request, 'search_results.html', {'fun': fun})
+    businesses = parsed["businesses"]
 
-    # print(parsed)
+    for business in businesses:
+        print("Name:", business["name"])
+        print("Rating:", business["rating"])
+        print("Address:", " ".join(business["location"]["display_address"]))
+        print("Phone:", business["phone"])
+        print("ID:", business["id"])
+        print("\n")
+
+    return render(request, 'business_search.html', {'businesses': businesses})
+
+def BusinessReview(request):
+    url = 'https://api.yelp.com/v3/businesses/search'
+    params = {'term':'bookstore','location':'New York City'}
+    req = requests.get(url, params=params, headers=headers)
+
+    parsed = json.loads(req.text)
     businesses = parsed["businesses"]
 
     for business in businesses:
@@ -41,20 +47,20 @@ def BusinessSearch(request):
         print("Address:", " ".join(business["location"]["display_address"]))
         print("Phone:", business["phone"])
         print("\n")
-    
-    return render(request, 'business.html', {'businesses': businesses})
 
+        id = business["id"]
 
-'''
-url='https://api.yelp.com/v3/businesses/search/phone'
-params = {'phone':'+14159083801'}
+        url="https://api.yelp.com/v3/businesses/" + id + "/reviews"
 
+        req = requests.get(url, headers=headers)
 
-url='https://api.yelp.com/v3/businesses/matches'
-id="E8RJkjfdcwgtyoPMjQ_Olg"
-url=f'https://api.yelp.com/v3/businesses/{id}'
+        parsed = json.loads(req.text)
 
+        reviews = parsed["reviews"]
 
-url=f'https://api.yelp.com/v3/businesses/{id}/reviews'
-'''
+        print("--- Reviews ---")
 
+        for review in reviews:
+            print("User:", review["user"]["name"], "Rating:", review["rating"], "Review:", review["text"], "\n")
+
+        return render(request, 'business_review.html', {'reviews': reviews})

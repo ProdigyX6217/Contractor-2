@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- <h3> {{businesses}} </h3> -->
+
+  {% if businesses %}
+    {% for business in businesses %}    
+    <div class="row">
+      <div class="col m-4">
+        <h3>{{ business.name }}</h3>
+        <p>{{ business.rating }}</p>
+        <p>{{ business.location.display_address }}</p>
+        <p>{{ business.phone }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}
