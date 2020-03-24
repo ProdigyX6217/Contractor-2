@@ -69,9 +69,9 @@ User Sign in/Register for website (Authentification)
 ## Wireframes
 
 **Insert wireframe pictures here**
-![1](static/yohancescornerwireframe1.jpg)
-![2](static/yohancescornerwireframe2.jpg)
-![3](static/yohancescornerwireframe3.jpg)
+![1](IMG_0151.jpg)
+![2](IMG_0152.jpg)
+<!-- ![3](static/yohancescornerwireframe3.jpg) -->
 
 
 ## Evaluation

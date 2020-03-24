@@ -6,9 +6,10 @@
     {% for review in reviews %}    
     <div class="row">
       <div class="col m-4">
-        <h3>{{ review.user.name }}</h3>
-        <h3>{{ review.rating }}</h3>
-        <h3>{{ review.text }}</h3>
+        <h1>{{ review.user.name }}</h3>
+        <p>{{ review.user.id }}</p>
+        <p>{{ review.rating }}</p>
+        <h3>{{ review.text }}</p>
       </div>
     </div>
     {% endfor %}

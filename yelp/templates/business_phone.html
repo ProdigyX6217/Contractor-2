@@ -1,24 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form>
-  <input type="text" name="search" placeholder="Search..">
-</form>
 
   {% if businesses %}
     {% for business in businesses %}    
     <div class="row">
       <div class="col m-4">
         <h3>{{ business.name }}</h3>
+        <h4>{{ business.phone }}</h4>
         <p>{{ business.id }}</p>
-        <p>{{ business.alias }}</p>
-        <p>{{ business.categories }}</p>
-        <p>{{ business.price }}</p>
         <p>{{ business.rating }}</p>
-        <p>{{ business.display_phone }}</p>
+        <p>{{ business.price }}</p>
         <p>{{ business.url }}</p>
         <p>{{ business.image_url }}</p>
+        <p>{{ business.coordinates }}</p>
         <p>{{ business.location }}</p>
+        <p>{{ business.transactions }}</p>
+        <p>{{ business.categories }}</p>
       </div>
     </div>
     {% endfor %}
